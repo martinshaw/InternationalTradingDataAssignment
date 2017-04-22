@@ -53,6 +53,11 @@
             this.cMainTradePartnersContainer = new System.Windows.Forms.TableLayoutPanel();
             this.cMainTradePartnersPanel = new System.Windows.Forms.GroupBox();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.mtpName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.mtpGDPGrowth = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.mtpInflation = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.mtpTradeBalance = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.mtpHDIRanking = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1.SuspendLayout();
             this.countriesListContainer.SuspendLayout();
             this.dataTableContainer.SuspendLayout();
@@ -105,11 +110,13 @@
             this.countriesList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.countriesList.GridLines = true;
             this.countriesList.Location = new System.Drawing.Point(5, 5);
+            this.countriesList.MultiSelect = false;
             this.countriesList.Name = "countriesList";
             this.countriesList.Size = new System.Drawing.Size(195, 639);
             this.countriesList.TabIndex = 0;
             this.countriesList.UseCompatibleStateImageBehavior = false;
             this.countriesList.View = System.Windows.Forms.View.Details;
+            this.countriesList.SelectedIndexChanged += new System.EventHandler(this.countriesList_SelectedIndexChanged);
             // 
             // countryName
             // 
@@ -139,7 +146,6 @@
             this.dataTableContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.19785F));
             this.dataTableContainer.Size = new System.Drawing.Size(779, 639);
             this.dataTableContainer.TabIndex = 1;
-            this.dataTableContainer.Paint += new System.Windows.Forms.PaintEventHandler(this.dataTableContainer_Paint);
             // 
             // cHDIRankingPanel
             // 
@@ -352,13 +358,45 @@
             // 
             // listView1
             // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.mtpName,
+            this.mtpGDPGrowth,
+            this.mtpInflation,
+            this.mtpTradeBalance,
+            this.mtpHDIRanking});
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView1.GridLines = true;
             this.listView1.Location = new System.Drawing.Point(3, 16);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(721, 215);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // mtpName
+            // 
+            this.mtpName.Text = "Country Name";
+            this.mtpName.Width = 200;
+            // 
+            // mtpGDPGrowth
+            // 
+            this.mtpGDPGrowth.Text = "GDP Growth";
+            this.mtpGDPGrowth.Width = 80;
+            // 
+            // mtpInflation
+            // 
+            this.mtpInflation.Text = "Inflation Rate";
+            this.mtpInflation.Width = 80;
+            // 
+            // mtpTradeBalance
+            // 
+            this.mtpTradeBalance.Text = "Trade Balance";
+            this.mtpTradeBalance.Width = 90;
+            // 
+            // mtpHDIRanking
+            // 
+            this.mtpHDIRanking.Text = "HDI Ranking";
+            this.mtpHDIRanking.Width = 80;
             // 
             // Form1
             // 
@@ -421,6 +459,11 @@
         private System.Windows.Forms.TableLayoutPanel cMainTradePartnersContainer;
         private System.Windows.Forms.GroupBox cMainTradePartnersPanel;
         private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader mtpName;
+        private System.Windows.Forms.ColumnHeader mtpGDPGrowth;
+        private System.Windows.Forms.ColumnHeader mtpInflation;
+        private System.Windows.Forms.ColumnHeader mtpTradeBalance;
+        private System.Windows.Forms.ColumnHeader mtpHDIRanking;
     }
 }
 

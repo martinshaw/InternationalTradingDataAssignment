@@ -24,6 +24,14 @@ namespace InternationalTradingDataAssignment
             SetupView();
         }
 
+        private void countriesList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if( countriesList.SelectedItems.Count != 0)
+            {
+                LoadCountryData(countriesList.SelectedItems[0].Text);
+            }
+        }
+
 
         public void SetupView()
         {
@@ -38,9 +46,20 @@ namespace InternationalTradingDataAssignment
 
         }
 
-        private void dataTableContainer_Paint(object sender, PaintEventArgs e)
+        public void LoadCountryData(string name)
         {
+            // Select data of requested Country from store
+            Country c = new Country();
+            foreach (Country country in dao.countries) { if (country.Name == name) { c = country; } }
 
+            // Load data from instance of class into Layout Views
+            cNameTextBox.Text = c.Name;
+            cGDPGrowthTextBox.Text = c.GdpGrowth.ToString();
+            cInflationTextBox.Text = c.Inflation.ToString();
+            cTradeBalanceTextBox.Text = c.TradeBalance.ToString();
+            cHDIRankingTextBox.Text = c.HdiRanking.ToString();
         }
+
+
     }
 }
