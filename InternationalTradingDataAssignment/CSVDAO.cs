@@ -38,7 +38,9 @@ namespace InternationalTradingDataAssignment
 
                     // Split data from lines into arrays
                     string[] columns = line.Split(',');
-                    string[] partners = columns[5].Split(';', '[', ']');
+
+                    // Remove squared brackets and split Main Trade Partner data
+                    string[] partners = columns[5].Replace("[", "").Replace("]", "").Split(';');
 
                     // Build instance of Country class with data
                     Country c = new Country();

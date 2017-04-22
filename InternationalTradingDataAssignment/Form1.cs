@@ -33,6 +33,16 @@ namespace InternationalTradingDataAssignment
             }
         }
 
+        private void cMainTradePartnersList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cMainTradePartnersList.SelectedItems.Count != 0)
+            {
+                LoadCountryData(cMainTradePartnersList.SelectedItems[0].Text);
+            }
+
+        }
+
+
 
         public void SetupView()
         {
@@ -41,7 +51,8 @@ namespace InternationalTradingDataAssignment
             ListViewItem lvi;
             foreach (Country country in dao.countries)
             {
-                lvi = new ListViewItem(new String[] { country.Name.Replace("_", " ") });
+                //lvi = new ListViewItem(new String[] { country.Name.Replace("_", " ") });
+                lvi = new ListViewItem(new String[] { country.Name });
                 countriesList.Items.Add(lvi);
             }
 
@@ -80,7 +91,5 @@ namespace InternationalTradingDataAssignment
                 }));
             }
         }
-
-
     }
 }

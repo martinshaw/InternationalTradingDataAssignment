@@ -367,11 +367,13 @@
             this.cMainTradePartnersList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cMainTradePartnersList.GridLines = true;
             this.cMainTradePartnersList.Location = new System.Drawing.Point(3, 16);
+            this.cMainTradePartnersList.MultiSelect = false;
             this.cMainTradePartnersList.Name = "cMainTradePartnersList";
             this.cMainTradePartnersList.Size = new System.Drawing.Size(721, 215);
             this.cMainTradePartnersList.TabIndex = 0;
             this.cMainTradePartnersList.UseCompatibleStateImageBehavior = false;
             this.cMainTradePartnersList.View = System.Windows.Forms.View.Details;
+            this.cMainTradePartnersList.SelectedIndexChanged += new System.EventHandler(this.cMainTradePartnersList_SelectedIndexChanged);
             // 
             // mtpName
             // 
