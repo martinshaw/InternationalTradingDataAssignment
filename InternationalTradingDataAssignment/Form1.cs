@@ -12,7 +12,7 @@ namespace InternationalTradingDataAssignment
 {
     public partial class Form1 : Form
     {
-        public CSVDAO dao;
+        public CSVDAO dao = new CSVDAO();
 
         public Form1()
         {
@@ -27,17 +27,20 @@ namespace InternationalTradingDataAssignment
 
         public void SetupView()
         {
-            dao = new CSVDAO();
             dao.ReadCSV("../../countries.csv");
 
             ListViewItem lvi;
-            foreach (string name in dao.countryNames)
+            foreach (Country country in dao.countries)
             {
-                lvi = new ListViewItem(new String[] { name.Replace("_", " ") });
+                lvi = new ListViewItem(new String[] { country.Name.Replace("_", " ") });
                 countriesList.Items.Add(lvi);
             }
 
         }
-        
+
+        private void dataTableContainer_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

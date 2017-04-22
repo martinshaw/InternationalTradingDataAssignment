@@ -11,7 +11,7 @@ namespace InternationalTradingDataAssignment
     public class CSVDAO
     {
         public string[] headers = new string[6]; //column headers
-        public List<string> countryNames = new List<string>();
+        public List<Country> countries = new List<Country>();
 
         public CSVDAO()
         {
@@ -35,27 +35,22 @@ namespace InternationalTradingDataAssignment
                 }
                 else
                 {
-                    //split data using commas
+
+                    // Split data from lines into arrays
                     string[] columns = line.Split(',');
-                    Debug.Write(columns[0] + ","); //first string in line;
-                    Debug.Write(columns[1] + ","); //2nd string in line;
-
-                    // Add Country to List for debugging menu
-                    countryNames.Add(columns[0]);
-
-
-                    /*
                     string[] partners = columns[5].Split(';', '[', ']');
-                    foreach (string tradePartner in partners)
-                    {
-                        if (tradePartner != "")
-                        {
-                            Debug.Write(":" + tradePartner);
 
-                        }
-                    }
+                    // Build instance of Country class with data
+                    Country c = new Country();
+                    c.Name = columns[0];
+                    c.GdpGrowth = float.Parse(columns[1]);
+                    c.Inflation = float.Parse(columns[2]);
+                    c.TradeBalance = float.Parse(columns[3]);
+                    c.HdiRanking = float.Parse(columns[4]);
+                    c.MainTradePartners = partners;
+                    countries.Add(c);
 
-                    */
+                    
                 }
 
             }
