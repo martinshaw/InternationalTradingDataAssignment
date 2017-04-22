@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -58,6 +59,26 @@ namespace InternationalTradingDataAssignment
             cInflationTextBox.Text = c.Inflation.ToString();
             cTradeBalanceTextBox.Text = c.TradeBalance.ToString();
             cHDIRankingTextBox.Text = c.HdiRanking.ToString();
+
+            // Clear Main Trade Partners ListView
+            cMainTradePartnersList.Items.Clear();
+
+            // Load Main Trade Partners' data
+            for (int i = 0; i < c.MainTradePartners.Length; i++)
+            {
+                // Select data of requested Country from store
+                Country ca = new Country();
+                foreach (Country country in dao.countries) { if (country.Name == c.MainTradePartners[i]) { ca = country; } }
+
+                // Create and add new instances of ListViewItem into the Main Trade Partners ListView
+                cMainTradePartnersList.Items.Add(new ListViewItem(new String[] {
+                    ca.Name,
+                    ca.GdpGrowth.ToString(),
+                    ca.Inflation.ToString(),
+                    ca.TradeBalance.ToString(),
+                    ca.HdiRanking.ToString()
+                }));
+            }
         }
 
 

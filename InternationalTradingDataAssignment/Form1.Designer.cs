@@ -52,7 +52,7 @@
             this.cNameLabel = new System.Windows.Forms.Label();
             this.cMainTradePartnersContainer = new System.Windows.Forms.TableLayoutPanel();
             this.cMainTradePartnersPanel = new System.Windows.Forms.GroupBox();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.cMainTradePartnersList = new System.Windows.Forms.ListView();
             this.mtpName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.mtpGDPGrowth = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.mtpInflation = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -347,7 +347,7 @@
             // 
             // cMainTradePartnersPanel
             // 
-            this.cMainTradePartnersPanel.Controls.Add(this.listView1);
+            this.cMainTradePartnersPanel.Controls.Add(this.cMainTradePartnersList);
             this.cMainTradePartnersPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cMainTradePartnersPanel.Location = new System.Drawing.Point(23, 23);
             this.cMainTradePartnersPanel.Name = "cMainTradePartnersPanel";
@@ -356,22 +356,22 @@
             this.cMainTradePartnersPanel.TabStop = false;
             this.cMainTradePartnersPanel.Text = "Main Trade Partners:";
             // 
-            // listView1
+            // cMainTradePartnersList
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.cMainTradePartnersList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.mtpName,
             this.mtpGDPGrowth,
             this.mtpInflation,
             this.mtpTradeBalance,
             this.mtpHDIRanking});
-            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(3, 16);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(721, 215);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.cMainTradePartnersList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cMainTradePartnersList.GridLines = true;
+            this.cMainTradePartnersList.Location = new System.Drawing.Point(3, 16);
+            this.cMainTradePartnersList.Name = "cMainTradePartnersList";
+            this.cMainTradePartnersList.Size = new System.Drawing.Size(721, 215);
+            this.cMainTradePartnersList.TabIndex = 0;
+            this.cMainTradePartnersList.UseCompatibleStateImageBehavior = false;
+            this.cMainTradePartnersList.View = System.Windows.Forms.View.Details;
             // 
             // mtpName
             // 
@@ -458,7 +458,7 @@
         private System.Windows.Forms.Label cInflationLabel;
         private System.Windows.Forms.TableLayoutPanel cMainTradePartnersContainer;
         private System.Windows.Forms.GroupBox cMainTradePartnersPanel;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView cMainTradePartnersList;
         private System.Windows.Forms.ColumnHeader mtpName;
         private System.Windows.Forms.ColumnHeader mtpGDPGrowth;
         private System.Windows.Forms.ColumnHeader mtpInflation;
