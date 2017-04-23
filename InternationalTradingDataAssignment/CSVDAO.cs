@@ -10,8 +10,10 @@ namespace InternationalTradingDataAssignment
 {
     public class CSVDAO
     {
+        const int MAX_LINES_FILE = 50000;
+        const string PATH = "../../countries.csv";
+
         public string[] headers = new string[6]; //column headers
-        //public List<Country> countries = new List<Country>();
         public AVLTree<Country> countries = new AVLTree<Country>();
 
         public CSVDAO()
@@ -19,15 +21,11 @@ namespace InternationalTradingDataAssignment
 
         }
 
-        public void ReadCSV(string Path)
+        public void ReadCSV()
         {
-            const int MAX_LINES_FILE = 50000;
             string[] AllLines = new string[MAX_LINES_FILE];
 
-
-        
-            //reads from bin/DEBUG subdirectory of project directory
-            AllLines = File.ReadAllLines(Path);
+            AllLines = File.ReadAllLines(PATH);
             foreach (string line in AllLines)
             {
                 if (line.StartsWith("Country")) //found first line - headers
@@ -36,7 +34,6 @@ namespace InternationalTradingDataAssignment
                 }
                 else
                 {
-
                     // Split data from lines into arrays
                     string[] columns = line.Split(',');
 
@@ -52,12 +49,25 @@ namespace InternationalTradingDataAssignment
                     c.HdiRanking = float.Parse(columns[4]);
                     c.MainTradePartners = partners;
                     countries.InsertItem(c);
-
-                    
                 }
 
             }
             
+        }
+
+        public void RemoveCountry (string name)
+        {
+            const int MAX_LINES_FILE = 50000;
+            string[] AllLines = new string[MAX_LINES_FILE];
+
+            AllLines = File.ReadAllLines(PATH);
+            foreach (string line in AllLines)
+            {
+                // Indentify line to be changed by comparing selected country name with 
+            }
+
+
+
         }
     }
 }

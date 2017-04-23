@@ -15,7 +15,11 @@ namespace InternationalTradingDataAssignment
     {
         public Boolean DEBUG = true;
 
+        public string selectedCountryName;
         public CSVDAO dao = new CSVDAO();
+
+
+
 
         public Form1()
         {
@@ -38,25 +42,6 @@ namespace InternationalTradingDataAssignment
         }
 
 
-        private void countriesList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (countriesList.SelectedItems.Count != 0)
-            {
-                LoadCountryData(countriesList.SelectedItems[0].Text);
-            }
-        }
-        private void cMainTradePartnersList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cMainTradePartnersList.SelectedItems.Count != 0)
-            {
-                LoadCountryData(cMainTradePartnersList.SelectedItems[0].Text);
-            }
-
-        }
-        private void formTextBoxes_KeyDown(object sender, EventArgs e)
-        {
-            cSaveCountryButton.Visible = true;
-        }
 
 
         // Programmatically style the Layout Elements,
@@ -66,7 +51,8 @@ namespace InternationalTradingDataAssignment
             // Declare colours and styles for reproducability[TODO]
             Color __backgroundColor = Color.FromArgb(255, 255, 255, 255);
             Color __menuColor = Color.FromArgb(255, 224, 224, 224);
-            System.Drawing.Font __labelFontStyle = new System.Drawing.Font(SystemFonts.DefaultFont.FontFamily, 10, FontStyle.Regular);
+            Color __textColor = Color.FromArgb(255, 0, 0, 0);
+            System.Drawing.Font __labelTBFontStyle = new System.Drawing.Font(SystemFonts.DefaultFont.FontFamily, 10, FontStyle.Regular);
             BorderStyle __textBoxBorderStyle = BorderStyle.FixedSingle;
 
             // Apply those colors and styles to the Layout Elements
@@ -76,16 +62,34 @@ namespace InternationalTradingDataAssignment
             this.cMainTradePartnersList.BackColor = __backgroundColor;
             this.cSaveCountryButton.BackColor = __menuColor;
 
+            this.cNameTextBox.BackColor = __backgroundColor;
+            this.cGDPGrowthTextBox.BackColor = __backgroundColor;
+            this.cInflationTextBox.BackColor = __backgroundColor;
+            this.cTradeBalanceTextBox.BackColor = __backgroundColor;
+            this.cHDIRankingTextBox.BackColor = __backgroundColor;
+
+            this.cNameTextBox.ForeColor = __textColor;
+            this.cGDPGrowthTextBox.ForeColor = __textColor;
+            this.cInflationTextBox.ForeColor = __textColor;
+            this.cTradeBalanceTextBox.ForeColor = __textColor;
+            this.cHDIRankingTextBox.ForeColor = __textColor;
+
             this.countriesList.Margin = new Padding(10);
             this.countriesList.HeaderStyle = ColumnHeaderStyle.None;
 
-            this.countriesList.Font = __labelFontStyle;
-            this.cNameLabel.Font = __labelFontStyle;
-            this.cGDPGrowthLabel.Font = __labelFontStyle;
-            this.cInflationLabel.Font = __labelFontStyle;
-            this.cTradeBalanceLabel.Font = __labelFontStyle;
-            this.cHDIRankingLabel.Font = __labelFontStyle;
-            this.cMainTradePartnersPanel.Font = __labelFontStyle;
+            this.countriesList.Font = __labelTBFontStyle;
+            this.cNameLabel.Font = __labelTBFontStyle;
+            this.cGDPGrowthLabel.Font = __labelTBFontStyle;
+            this.cInflationLabel.Font = __labelTBFontStyle;
+            this.cTradeBalanceLabel.Font = __labelTBFontStyle;
+            this.cHDIRankingLabel.Font = __labelTBFontStyle;
+            this.cMainTradePartnersPanel.Font = __labelTBFontStyle;
+
+            this.cNameTextBox.Font = __labelTBFontStyle;
+            this.cGDPGrowthTextBox.Font = __labelTBFontStyle;
+            this.cInflationTextBox.Font = __labelTBFontStyle;
+            this.cTradeBalanceTextBox.Font = __labelTBFontStyle;
+            this.cHDIRankingTextBox.Font = __labelTBFontStyle;
 
             this.cNameTextBox.BorderStyle = __textBoxBorderStyle;
             this.cGDPGrowthTextBox.BorderStyle = __textBoxBorderStyle;
@@ -97,7 +101,7 @@ namespace InternationalTradingDataAssignment
 
         public void SetupView()
         {
-            dao.ReadCSV("../../countries.csv");
+            dao.ReadCSV();
 
             ListViewItem lvi;
             List<Country> buffer = new List<Country>();
@@ -108,11 +112,7 @@ namespace InternationalTradingDataAssignment
                 countriesList.Items.Add(lvi);
             }
 
-
-
-
             cSaveCountryButton.Visible = false;
-
         }
 
         public void LoadCountryData(string name)
@@ -125,6 +125,11 @@ namespace InternationalTradingDataAssignment
             {
                 if(_c.Name == name) { c = _c; }
             }
+
+            // Store current Country Name for use during DAO operations
+            selectedCountryName = c.Name;
+
+            disableEditable();
 
             // Load data from instance of class into Layout Views
             cNameTextBox.Text = c.Name;
@@ -160,5 +165,86 @@ namespace InternationalTradingDataAssignment
 
         }
 
+        public void enableEditable()
+        {
+            // Enable editable status of Text Box Layout Views
+            cNameTextBox.Enabled = true;
+            cGDPGrowthTextBox.Enabled = true;
+            cInflationTextBox.Enabled = true;
+            cTradeBalanceTextBox.Enabled = true;
+            cHDIRankingTextBox.Enabled = true;
+
+            // Enable font style to Italic from Regular
+            System.Drawing.Font __editableTBFontStyle = new System.Drawing.Font(SystemFonts.DefaultFont.FontFamily, 10, FontStyle.Italic);
+            cNameTextBox.Font = __editableTBFontStyle;
+            cGDPGrowthTextBox.Font = __editableTBFontStyle;
+            cInflationTextBox.Font = __editableTBFontStyle;
+            cTradeBalanceTextBox.Font = __editableTBFontStyle;
+            cHDIRankingTextBox.Font = __editableTBFontStyle;
+        }
+
+        public void disableEditable()
+        {
+            // Reset editable status of Text Box Layout Views
+            cNameTextBox.Enabled = false;
+            cGDPGrowthTextBox.Enabled = false;
+            cInflationTextBox.Enabled = false;
+            cTradeBalanceTextBox.Enabled = false;
+            cHDIRankingTextBox.Enabled = false;
+
+            // Reset font style to Regular from Italic
+            System.Drawing.Font __labelTBFontStyle = new System.Drawing.Font(SystemFonts.DefaultFont.FontFamily, 10, FontStyle.Regular);
+            cNameTextBox.Font = __labelTBFontStyle;
+            cGDPGrowthTextBox.Font = __labelTBFontStyle;
+            cInflationTextBox.Font = __labelTBFontStyle;
+            cTradeBalanceTextBox.Font = __labelTBFontStyle;
+            cHDIRankingTextBox.Font = __labelTBFontStyle;
+        }
+
+
+
+        
+        private void countriesList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (countriesList.SelectedItems.Count != 0)
+            {
+                LoadCountryData(countriesList.SelectedItems[0].Text);
+            }
+        }
+
+        private void cMainTradePartnersList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cMainTradePartnersList.SelectedItems.Count != 0)
+            {
+                LoadCountryData(cMainTradePartnersList.SelectedItems[0].Text);
+            }
+
+        }
+
+        private void formTextBoxes_KeyDown(object sender, EventArgs e)
+        {
+            cSaveCountryButton.Visible = true;
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            enableEditable();
+        }
+
+        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (selectedCountryName == null)
+            {
+                MessageBox.Show("You must select a Country from the menu, to remove it!", "INFORMATION", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else {
+                dao.RemoveCountry(selectedCountryName);
+            }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Application.Exit();
+        }
     }
 }
