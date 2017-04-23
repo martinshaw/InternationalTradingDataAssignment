@@ -23,10 +23,10 @@ namespace InternationalTradingDataAssignment
 
         public void ReadCSV()
         {
-            string[] AllLines = new string[MAX_LINES_FILE];
+            string[] allLines = new string[MAX_LINES_FILE];
 
-            AllLines = File.ReadAllLines(PATH);
-            foreach (string line in AllLines)
+            allLines = File.ReadAllLines(PATH);
+            foreach (string line in allLines)
             {
                 if (line.StartsWith("Country")) //found first line - headers
                 {
@@ -55,18 +55,47 @@ namespace InternationalTradingDataAssignment
             
         }
 
-        public void RemoveCountry (string name)
+        public void RemoveCountry(string name)
         {
-            const int MAX_LINES_FILE = 50000;
-            string[] AllLines = new string[MAX_LINES_FILE];
+            string[] allLines = new string[MAX_LINES_FILE];
+            string[] newLines = new string[MAX_LINES_FILE];
+            int newIndex = 0;
 
-            AllLines = File.ReadAllLines(PATH);
-            foreach (string line in AllLines)
+            allLines = File.ReadAllLines(PATH);
+            for (int i = 0; i < allLines.Length; i++)
             {
-                // Indentify line to be changed by comparing selected country name with 
+                // Indentify line to be changed by comparing with names of Main Trading Partners
+                if (allLines[i].Split(',')[5].IndexOf(name) > -1)
+                {
+                    string partners = allLines[i].Split(',')[5];
+                    if (partners.IndexOf(";" + name) > -1) { partners = partners.Replace(";" + name, ""); }
+                    else if (partners.IndexOf(name + ";") > -1) { partners = partners.Replace(name + ";", ""); }
+                    else if (partners.IndexOf(";" + name + ";") > -1) { partners = partners.Replace(";" + name + ";", ";"); }
+                    else if (partners.IndexOf(name) > -1) { partners = partners.Replace(name, ""); }
+                    newLines[newIndex] = allLines[i].Split(',')[0] + "," + 
+                        allLines[i].Split(',')[1] + "," +
+                        allLines[i].Split(',')[2] + "," +
+                        allLines[i].Split(',')[3] + "," +
+                        allLines[i].Split(',')[4] + "," +
+                        partners;
+                    newIndex++;
+                }
+
+                // Indentify line to be changed by comparing with specified name
+                else if (allLines[i].Split(',')[0] != name)
+                {
+                    newLines[newIndex] = allLines[i];
+                    newIndex++;
+                }
             }
 
+            string[] finishedLines = new string[newLines.Count(s => s != null)];
+            for(int ifl = 0; ifl < finishedLines.Length; ifl++)
+            {
+                finishedLines[ifl] = newLines[ifl];
+            }
 
+            File.WriteAllLines(PATH, finishedLines);
 
         }
     }

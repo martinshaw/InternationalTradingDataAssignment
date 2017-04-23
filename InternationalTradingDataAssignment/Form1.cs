@@ -101,6 +101,8 @@ namespace InternationalTradingDataAssignment
 
         public void SetupView()
         {
+            //countriesList.Items.Clear();
+
             dao.ReadCSV();
 
             ListViewItem lvi;
@@ -111,7 +113,7 @@ namespace InternationalTradingDataAssignment
                 lvi = new ListViewItem(new String[] { _c.Name });
                 countriesList.Items.Add(lvi);
             }
-
+            
             cSaveCountryButton.Visible = false;
         }
 
@@ -239,6 +241,7 @@ namespace InternationalTradingDataAssignment
             }
             else {
                 dao.RemoveCountry(selectedCountryName);
+                SetupView();
             }
         }
 
