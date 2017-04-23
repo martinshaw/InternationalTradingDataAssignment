@@ -13,6 +13,8 @@ namespace InternationalTradingDataAssignment
 {
     public partial class Form1 : Form
     {
+        public Boolean DEBUG = true;
+
         public CSVDAO dao = new CSVDAO();
 
         public Form1()
@@ -21,14 +23,24 @@ namespace InternationalTradingDataAssignment
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            StyleLayout();
-            SetupView();
+            try
+            {
+                StyleLayout();
+                SetupView();
+            }
+            catch (Exception ex)
+            {
+                if (DEBUG == true)
+                {
+                    MessageBox.Show(ex.StackTrace, "ERROR: " + ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
-        
+
 
         private void countriesList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if( countriesList.SelectedItems.Count != 0)
+            if (countriesList.SelectedItems.Count != 0)
             {
                 LoadCountryData(countriesList.SelectedItems[0].Text);
             }
@@ -88,12 +100,16 @@ namespace InternationalTradingDataAssignment
             dao.ReadCSV("../../countries.csv");
 
             ListViewItem lvi;
-            foreach (Country country in dao.countries)
+            List<Country> buffer = new List<Country>();
+            dao.countries.InOrder(ref buffer);
+            foreach(Country _c in buffer)
             {
-                //lvi = new ListViewItem(new String[] { country.Name.Replace("_", " ") });
-                lvi = new ListViewItem(new String[] { country.Name });
+                lvi = new ListViewItem(new String[] { _c.Name });
                 countriesList.Items.Add(lvi);
             }
+
+
+
 
             cSaveCountryButton.Visible = false;
 
@@ -103,7 +119,12 @@ namespace InternationalTradingDataAssignment
         {
             // Select data of requested Country from store
             Country c = new Country();
-            foreach (Country country in dao.countries) { if (country.Name == name) { c = country; } }
+            List<Country> buffer = new List<Country>();
+            dao.countries.InOrder(ref buffer);
+            foreach (Country _c in buffer)
+            {
+                if(_c.Name == name) { c = _c; }
+            }
 
             // Load data from instance of class into Layout Views
             cNameTextBox.Text = c.Name;
@@ -116,11 +137,14 @@ namespace InternationalTradingDataAssignment
             cMainTradePartnersList.Items.Clear();
 
             // Load Main Trade Partners' data
-            for (int i = 0; i < c.MainTradePartners.Length; i++)
+            foreach(string partner in c.MainTradePartners)
             {
                 // Select data of requested Country from store
                 Country ca = new Country();
-                foreach (Country country in dao.countries) { if (country.Name == c.MainTradePartners[i]) { ca = country; } }
+                foreach (Country _ca in buffer)
+                {
+                    if (partner == _ca.Name) { ca = _ca; }
+                }
 
                 // Create and add new instances of ListViewItem into the Main Trade Partners ListView
                 cMainTradePartnersList.Items.Add(new ListViewItem(new String[] {

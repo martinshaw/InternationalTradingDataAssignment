@@ -11,7 +11,8 @@ namespace InternationalTradingDataAssignment
     public class CSVDAO
     {
         public string[] headers = new string[6]; //column headers
-        public List<Country> countries = new List<Country>();
+        //public List<Country> countries = new List<Country>();
+        public AVLTree<Country> countries = new AVLTree<Country>();
 
         public CSVDAO()
         {
@@ -50,7 +51,7 @@ namespace InternationalTradingDataAssignment
                     c.TradeBalance = float.Parse(columns[3]);
                     c.HdiRanking = float.Parse(columns[4]);
                     c.MainTradePartners = partners;
-                    countries.Add(c);
+                    countries.InsertItem(c);
 
                     
                 }

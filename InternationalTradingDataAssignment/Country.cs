@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace InternationalTradingDataAssignment
 {
-    public class Country
+    public class Country : IComparable<Country>
     {
-        private string name;
+        public string name;
         private float gdpGrowth = 0f;
         private float inflation = 0f;
         private float tradeBalance = 0f;
@@ -70,5 +70,11 @@ namespace InternationalTradingDataAssignment
             set { this.mainTradePartners = value; }
         }
 
+        
+
+        public int CompareTo(Country obj)
+        {
+            return Name.CompareTo(obj.Name);
+        }
     }
 }
