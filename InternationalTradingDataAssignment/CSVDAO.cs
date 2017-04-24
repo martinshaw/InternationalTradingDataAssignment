@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Windows.Forms
 
 namespace InternationalTradingDataAssignment
 {
@@ -53,6 +54,58 @@ namespace InternationalTradingDataAssignment
 
             }
             
+        }
+
+        public void EditCountry(
+            string originalName,
+            string name,
+            float gdpGrowth,
+            float inflation,
+            float tradeBalance,
+            float hdiRanking
+        )
+        {
+            Boolean error = false;
+            string[] allLines = new string[MAX_LINES_FILE];
+            string[] newLines = new string[MAX_LINES_FILE];
+            int newIndex = 0;
+
+            allLines = File.ReadAllLines(PATH);
+            for (int i = 0; i < allLines.Length; i++)
+            {
+                // Indentify line to be changed by comparing with specified name
+                if (allLines[i].Split(',')[0] == name)
+                {
+
+                    if (name == null || name == "" || name == " ")
+                    {
+                        error = true;
+                        MessageBox.Show("Cannot save changes with an empty Name field!");
+                    }
+                    
+                    if (error == true)
+                    {
+                        newLines[newIndex] = allLines[i];
+                        newIndex++;
+                    } else
+                    {
+
+                    }
+
+                } else {
+                    newLines[newIndex] = allLines[i];
+                    newIndex++;
+                }
+            }
+
+            string[] finishedLines = new string[newLines.Count(s => s != null)];
+            for (int ifl = 0; ifl < finishedLines.Length; ifl++)
+            {
+                finishedLines[ifl] = newLines[ifl];
+            }
+
+            File.WriteAllLines(PATH, finishedLines);
+
         }
 
         public void RemoveCountry(string name)
