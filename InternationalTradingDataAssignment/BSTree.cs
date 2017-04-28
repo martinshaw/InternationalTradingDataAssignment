@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 namespace InternationalTradingDataAssignment
 {
     public class BSTree<Country> : BinTree<Country> where Country : IComparable<Country>
-    {       
+    {
+
+        int counter = 0;
 
         public void InsertItem(Country item)
         {
@@ -64,23 +66,22 @@ namespace InternationalTradingDataAssignment
         private int count(ref Node<Country> tree)
         //Return the number of nodes in the tree
         {
-            int counter = 0;
-
+            
             if (tree == null)
             {
                 return 0;
             }
             else if (tree.Left != null)
             {
-                counter += count(ref tree.Left);
-                counter++;
+                this.counter++;
+                this.counter += count(ref tree.Left);
             }
             else if (tree.Right != null)
             {
-                counter += count(ref tree.Right);
-                counter++;
+                this.counter++;
+                this.counter += count(ref tree.Right);
             }
-            return counter;
+            return this.counter;
         }
 
 

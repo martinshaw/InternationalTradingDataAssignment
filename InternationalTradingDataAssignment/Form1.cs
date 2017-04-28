@@ -237,7 +237,14 @@ namespace InternationalTradingDataAssignment
         
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            EnableEditable();
+            if (selectedCountryName == null)
+            {
+                MessageBox.Show("You must select a Country from the menu, to edit it!", "INFORMATION", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                EnableEditable();
+            }
         }
 
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -299,7 +306,7 @@ namespace InternationalTradingDataAssignment
 
         private void informationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Display the country which has the biggest potential for trade
+            // Display the country which has the biggest potential for trade (WORKING)
             string countryName = "NON";
             float value = 0f;
             List<Country> buffer = new List<Country>();
@@ -321,7 +328,8 @@ namespace InternationalTradingDataAssignment
 
             }
 
-            Information informationModal = new Information(dao.countries.Height(), dao.countries.Count(), countryName);
+            // Trigger Modal Dialog Box containing overview information
+            Information informationModal = new Information(dao.countries.Height(), buffer.Count, countryName);
             informationModal.Show();
         }
     }
