@@ -7,12 +7,7 @@ using System.Threading.Tasks;
 namespace InternationalTradingDataAssignment
 {
     public class BSTree<Country> : BinTree<Country> where Country : IComparable<Country>
-    {
-
-        public BSTree()
-        {
-            root = null;
-        }
+    {       
 
         public void InsertItem(Country item)
         {

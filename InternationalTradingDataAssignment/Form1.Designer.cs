@@ -65,6 +65,7 @@
             this.mtpHDIRanking = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cSaveCountryPanel = new System.Windows.Forms.TableLayoutPanel();
             this.cSaveCountryButton = new System.Windows.Forms.Button();
+            this.informationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.countriesListContainer.SuspendLayout();
             this.dataTableContainer.SuspendLayout();
@@ -93,6 +94,7 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.informationToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
@@ -222,6 +224,7 @@
             this.cHDIRankingTextBox.Name = "cHDIRankingTextBox";
             this.cHDIRankingTextBox.Size = new System.Drawing.Size(338, 24);
             this.cHDIRankingTextBox.TabIndex = 0;
+            this.cHDIRankingTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cHDIRankingTextBox_KeyDown);
             // 
             // cHDIRankingLabel
             // 
@@ -259,6 +262,7 @@
             this.cTradeBalanceTextBox.Name = "cTradeBalanceTextBox";
             this.cTradeBalanceTextBox.Size = new System.Drawing.Size(340, 24);
             this.cTradeBalanceTextBox.TabIndex = 0;
+            this.cTradeBalanceTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cTradeBalanceTextBox_KeyDown);
             // 
             // cTradeBalanceLabel
             // 
@@ -296,6 +300,7 @@
             this.cInflationTextBox.Name = "cInflationTextBox";
             this.cInflationTextBox.Size = new System.Drawing.Size(338, 24);
             this.cInflationTextBox.TabIndex = 0;
+            this.cInflationTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cInflationTextBox_KeyDown);
             // 
             // cInflationLabel
             // 
@@ -333,6 +338,7 @@
             this.cGDPGrowthTextBox.Name = "cGDPGrowthTextBox";
             this.cGDPGrowthTextBox.Size = new System.Drawing.Size(340, 24);
             this.cGDPGrowthTextBox.TabIndex = 0;
+            this.cGDPGrowthTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cGDPGrowthTextBox_KeyDown);
             // 
             // cGDPGrowthLabel
             // 
@@ -370,7 +376,7 @@
             this.cNameTextBox.Name = "cNameTextBox";
             this.cNameTextBox.Size = new System.Drawing.Size(338, 24);
             this.cNameTextBox.TabIndex = 0;
-            this.cNameTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.formTextBoxes_KeyDown);
+            this.cNameTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cNameTextBox_KeyDown);
             // 
             // cNameLabel
             // 
@@ -481,6 +487,14 @@
             this.cSaveCountryButton.TabIndex = 0;
             this.cSaveCountryButton.Text = "Save Changes";
             this.cSaveCountryButton.UseVisualStyleBackColor = true;
+            this.cSaveCountryButton.Click += new System.EventHandler(this.cSaveCountryButton_Click);
+            // 
+            // informationToolStripMenuItem
+            // 
+            this.informationToolStripMenuItem.Name = "informationToolStripMenuItem";
+            this.informationToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.informationToolStripMenuItem.Text = "Information";
+            this.informationToolStripMenuItem.Click += new System.EventHandler(this.informationToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -556,6 +570,7 @@
         private System.Windows.Forms.TableLayoutPanel cSaveCountryPanel;
         private System.Windows.Forms.Button cSaveCountryButton;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem informationToolStripMenuItem;
     }
 }
 

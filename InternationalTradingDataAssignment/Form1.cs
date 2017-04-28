@@ -29,8 +29,20 @@ namespace InternationalTradingDataAssignment
         {
             try
             {
+                // Code to bring window to User's attention after restart
+                this.WindowState = FormWindowState.Minimized;
+                this.Show();
+                this.WindowState = FormWindowState.Normal;
+                this.BringToFront();
+
+                // Disable editable status on Text Box Views when a country is
+                // not yet selected
+                DisableEditable();
+
+                // Load Application
                 StyleLayout();
                 SetupView();
+
             }
             catch (Exception ex)
             {
@@ -131,7 +143,7 @@ namespace InternationalTradingDataAssignment
             // Store current Country Name for use during DAO operations
             selectedCountryName = c.Name;
 
-            disableEditable();
+            DisableEditable();
 
             // Load data from instance of class into Layout Views
             cNameTextBox.Text = c.Name;
@@ -167,7 +179,7 @@ namespace InternationalTradingDataAssignment
 
         }
 
-        public void enableEditable()
+        public void EnableEditable()
         {
             // Enable editable status of Text Box Layout Views
             cNameTextBox.Enabled = true;
@@ -185,7 +197,7 @@ namespace InternationalTradingDataAssignment
             cHDIRankingTextBox.Font = __editableTBFontStyle;
         }
 
-        public void disableEditable()
+        public void DisableEditable()
         {
             // Reset editable status of Text Box Layout Views
             cNameTextBox.Enabled = false;
@@ -222,15 +234,10 @@ namespace InternationalTradingDataAssignment
             }
 
         }
-
-        private void formTextBoxes_KeyDown(object sender, EventArgs e)
-        {
-            cSaveCountryButton.Visible = true;
-        }
-
+        
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            enableEditable();
+            EnableEditable();
         }
 
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -249,6 +256,51 @@ namespace InternationalTradingDataAssignment
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.Application.Exit();
+        }
+
+        private void cSaveCountryButton_Click(object sender, EventArgs e)
+        {
+            dao.EditCountry(
+                selectedCountryName,
+                cNameTextBox.Text,
+                cGDPGrowthTextBox.Text,
+                cInflationTextBox.Text,
+                cTradeBalanceTextBox.Text,
+                cHDIRankingTextBox.Text
+            );
+            Application.Restart();
+            Environment.Exit(0);
+        }
+
+        private void cNameTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            cSaveCountryButton.Visible = true;
+        }
+
+        private void cGDPGrowthTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            cSaveCountryButton.Visible = true;
+        }
+
+        private void cInflationTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            cSaveCountryButton.Visible = true;
+        }
+
+        private void cTradeBalanceTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            cSaveCountryButton.Visible = true;
+        }
+
+        private void cHDIRankingTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            cSaveCountryButton.Visible = true;
+        }
+
+        private void informationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Information informationModal = new Information(dao.countries.Height(), dao.countries.Count());
+            informationModal.Show();
         }
     }
 }

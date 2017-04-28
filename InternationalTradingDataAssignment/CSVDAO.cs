@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using System.Windows.Forms
+using System.Windows.Forms;
 
 namespace InternationalTradingDataAssignment
 {
@@ -59,10 +59,10 @@ namespace InternationalTradingDataAssignment
         public void EditCountry(
             string originalName,
             string name,
-            float gdpGrowth,
-            float inflation,
-            float tradeBalance,
-            float hdiRanking
+            string gdpGrowth,
+            string inflation,
+            string tradeBalance,
+            string hdiRanking
         )
         {
             Boolean error = false;
@@ -73,26 +73,52 @@ namespace InternationalTradingDataAssignment
             allLines = File.ReadAllLines(PATH);
             for (int i = 0; i < allLines.Length; i++)
             {
-                // Indentify line to be changed by comparing with specified name
-                if (allLines[i].Split(',')[0] == name)
+                // Identify line to be changed by comparing with specified name
+                if (allLines[i].Split(',')[0] == originalName)
                 {
+                    if (name == null || name == "" || name == " ") { error = true; MessageBox.Show("Cannot save changes with an empty Name field!"); }
+                    if (gdpGrowth == null || gdpGrowth == "" || gdpGrowth == " ") { error = true; MessageBox.Show("Cannot save changes with an empty GDP Growth field!"); }
+                    if (inflation == null || inflation == "" || inflation == " ") { error = true; MessageBox.Show("Cannot save changes with an empty Inflation field!"); }
+                    if (tradeBalance == null || tradeBalance == "" || tradeBalance == " ") { error = true; MessageBox.Show("Cannot save changes with an empty Trade Balance field!"); }
+                    if (hdiRanking == null || hdiRanking == "" || hdiRanking == " ") { error = true; MessageBox.Show("Cannot save changes with an empty HDI Ranking field!"); }
 
-                    if (name == null || name == "" || name == " ")
-                    {
-                        error = true;
-                        MessageBox.Show("Cannot save changes with an empty Name field!");
-                    }
-                    
                     if (error == true)
                     {
                         newLines[newIndex] = allLines[i];
                         newIndex++;
-                    } else
+                    }
+                    else
                     {
-
+                        newLines[newIndex] = name + "," +
+                            gdpGrowth.ToString() + "," +
+                            inflation.ToString() + "," +
+                            tradeBalance.ToString() + "," +
+                            hdiRanking.ToString() + "," +
+                            allLines[i].Split(',')[5];
+                        newIndex++;
+                        MessageBox.Show("Country\'s data has been edited & stored!", "SUCCESS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
 
-                } else {
+                }
+
+                // Identify line to be changed by comparing with names of Main Trading Partners
+                else if (allLines[i].Split(',')[5].IndexOf(originalName) > -1)
+                {
+                    string partners = allLines[i].Split(',')[5];
+                    if (partners.IndexOf(";" + originalName) > -1) { partners = partners.Replace(";" + originalName, ";" + name); }
+                    else if (partners.IndexOf(originalName + ";") > -1) { partners = partners.Replace(originalName + ";", name + ";"); }
+                    else if (partners.IndexOf(";" + originalName + ";") > -1) { partners = partners.Replace(";" + originalName + ";", ";" + name + ";"); }
+                    else if (partners.IndexOf(originalName) > -1) { partners = partners.Replace(originalName, name); }
+                    newLines[newIndex] = allLines[i].Split(',')[0] + "," +
+                        allLines[i].Split(',')[1] + "," +
+                        allLines[i].Split(',')[2] + "," +
+                        allLines[i].Split(',')[3] + "," +
+                        allLines[i].Split(',')[4] + "," +
+                        partners;
+                    newIndex++;
+                }
+
+                else {
                     newLines[newIndex] = allLines[i];
                     newIndex++;
                 }
@@ -117,7 +143,7 @@ namespace InternationalTradingDataAssignment
             allLines = File.ReadAllLines(PATH);
             for (int i = 0; i < allLines.Length; i++)
             {
-                // Indentify line to be changed by comparing with names of Main Trading Partners
+                // Identify line to be changed by comparing with names of Main Trading Partners
                 if (allLines[i].Split(',')[5].IndexOf(name) > -1)
                 {
                     string partners = allLines[i].Split(',')[5];
@@ -134,7 +160,7 @@ namespace InternationalTradingDataAssignment
                     newIndex++;
                 }
 
-                // Indentify line to be changed by comparing with specified name
+                // Identify line to be changed by comparing with specified name
                 else if (allLines[i].Split(',')[0] != name)
                 {
                     newLines[newIndex] = allLines[i];
@@ -150,6 +176,7 @@ namespace InternationalTradingDataAssignment
 
             File.WriteAllLines(PATH, finishedLines);
 
+            MessageBox.Show("Country\'s data has been removed!", "SUCCESS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
     }
 }

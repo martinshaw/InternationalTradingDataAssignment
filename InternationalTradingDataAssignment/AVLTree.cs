@@ -12,6 +12,7 @@ namespace InternationalTradingDataAssignment
         {
             root = null;
         }
+
         private void rotateLeft(ref Node<Country> tree)
         {
             if (tree.Right.BalanceFactor > 0)  //double rotate
