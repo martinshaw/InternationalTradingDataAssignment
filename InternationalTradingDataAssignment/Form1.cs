@@ -299,7 +299,29 @@ namespace InternationalTradingDataAssignment
 
         private void informationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Information informationModal = new Information(dao.countries.Height(), dao.countries.Count());
+            // Display the country which has the biggest potential for trade
+            string countryName = "NON";
+            float value = 0f;
+            List<Country> buffer = new List<Country>();
+            dao.countries.InOrder(ref buffer);
+            foreach (Country _c in buffer)
+            {
+                string[] partners = _c.MainTradePartners;
+                float _amount = 0f;
+                for (int i = 0; i < partners.Length; i++)
+                {
+                    _amount += buffer.Find(_cp => _cp.Name == partners[i]).GdpGrowth;
+                }
+
+                if (_amount > value)
+                {
+                    value = _amount;
+                    countryName = _c.Name;
+                }
+
+            }
+
+            Information informationModal = new Information(dao.countries.Height(), dao.countries.Count(), countryName);
             informationModal.Show();
         }
     }

@@ -34,6 +34,8 @@
             this.infoDepthValue = new System.Windows.Forms.Label();
             this.infoCountLabel = new System.Windows.Forms.Label();
             this.infoCountValue = new System.Windows.Forms.Label();
+            this.infoGDPLabel = new System.Windows.Forms.Label();
+            this.infoGDPValue = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,6 +49,8 @@
             this.tableLayoutPanel1.Controls.Add(this.infoDepthValue, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.infoCountLabel, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.infoCountValue, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.infoGDPLabel, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.infoGDPValue, 1, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(20, 20);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -119,6 +123,29 @@
             this.infoCountValue.Text = "Calculating...";
             this.infoCountValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // infoGDPLabel
+            // 
+            this.infoGDPLabel.AutoSize = true;
+            this.infoGDPLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.infoGDPLabel.Location = new System.Drawing.Point(3, 120);
+            this.infoGDPLabel.Name = "infoGDPLabel";
+            this.infoGDPLabel.Size = new System.Drawing.Size(175, 60);
+            this.infoGDPLabel.TabIndex = 5;
+            this.infoGDPLabel.Text = "Country with biggest potential for trade";
+            this.infoGDPLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // infoGDPValue
+            // 
+            this.infoGDPValue.AutoSize = true;
+            this.infoGDPValue.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.infoGDPValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.infoGDPValue.Location = new System.Drawing.Point(184, 120);
+            this.infoGDPValue.Name = "infoGDPValue";
+            this.infoGDPValue.Size = new System.Drawing.Size(267, 60);
+            this.infoGDPValue.TabIndex = 6;
+            this.infoGDPValue.Text = "Calculating...";
+            this.infoGDPValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Information
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -151,5 +178,7 @@
         private System.Windows.Forms.Label infoDepthValue;
         private System.Windows.Forms.Label infoCountLabel;
         private System.Windows.Forms.Label infoCountValue;
+        private System.Windows.Forms.Label infoGDPLabel;
+        private System.Windows.Forms.Label infoGDPValue;
     }
 }
