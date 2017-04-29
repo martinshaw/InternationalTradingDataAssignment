@@ -12,7 +12,7 @@ namespace InternationalTradingDataAssignment
     public class CSVDAO
     {
         const int MAX_LINES_FILE = 50000;
-        const string PATH = "../../countries.csv";
+        const string PATH = "countries.csv";
 
         public string[] headers = new string[6]; //column headers
         public AVLTree<Country> countries = new AVLTree<Country>();
